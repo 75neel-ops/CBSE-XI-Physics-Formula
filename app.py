@@ -1,89 +1,126 @@
 import random
 import streamlit as st
 
-# পেজ কনফিগারেশন
+# Page configuration
 st.set_page_config(
-    page_title="একাদশ শ্রেণির গণিত ফর্মুলা কুইজ", page_icon="📐", layout="centered"
+    page_title="Class 11 Physics Formula Quiz",
+    page_icon="⚡",
+    layout="centered",
 )
 
-# ফর্মুলার ডেটাবেস
-FORMULAS = {
-    "Sets & Relations": [
+# Class 11 Physics Formula Database
+PHYSICS_FORMULAS = {
+    "Mechanics & Motion": [
         {
-            "prompt": "Number of elements in power set P(A) where n(A) = m",
-            "answer": "2^m",
-        },
-        {"prompt": "n(A ∪ B) = n(A) + n(B) - ?", "answer": "n(A ∩ B)"},
-        {"prompt": "De Morgan's Law: (A ∪ B)' =", "answer": "A' ∩ B'"},
-    ],
-    "Trigonometric Functions": [
-        {"prompt": "sin²(x) + cos²(x) =", "answer": "1"},
-        {"prompt": "cos(2x) in terms of cos(x) =", "answer": "2cos²(x) - 1"},
-        {"prompt": "sin(A + B) =", "answer": "sinA cosB + cosA sinB"},
-        {"prompt": "tan(2x) =", "answer": "2tan(x) / (1 - tan²(x))"},
-    ],
-    "Permutations & Combinations": [
-        {"prompt": "nPr formula =", "answer": "n! / (n - r)!"},
-        {"prompt": "nCr formula =", "answer": "n! / (r! * (n - r)!)"},
-        {"prompt": "nCr + nC(r-1) =", "answer": "n+1Cr"},
-    ],
-    "Limits & Derivatives": [
-        {"prompt": "lim (x->0) [sin(x) / x] =", "answer": "1"},
-        {"prompt": "Derivative of x^n d/dx(x^n) =", "answer": "n*x^(n-1)"},
-        {"prompt": "Derivative of sin(x) =", "answer": "cos(x)"},
-    ],
-    "Straight Lines & Conics": [
-        {
-            "prompt": "Slope of line through (x1, y1) and (x2, y2) =",
-            "answer": "(y2 - y1) / (x2 - x1)",
+            "prompt": "Equation of motion: v =",
+            "answer": "u + at",
         },
         {
-            "prompt": "Equation of circle with center (h,k) and radius r =",
-            "answer": "(x-h)² + (y-k)² = r²",
+            "prompt": "Displacement in time t: s =",
+            "answer": "ut + 1/2at^2",
         },
-        {"prompt": "Eccentricity (e) of a parabola =", "answer": "1"},
+        {
+            "prompt": "Newton's Second Law force: F =",
+            "answer": "ma",
+        },
+        {
+            "prompt": "Centripetal acceleration: a_c =",
+            "answer": "v^2/r",
+        },
+    ],
+    "Work, Energy & Power": [
+        {
+            "prompt": "Work done (W) in terms of force (F) and displacement (s) =",
+            "answer": "F.s",
+        },
+        {
+            "prompt": "Kinetic Energy (K) =",
+            "answer": "1/2mv^2",
+        },
+        {
+            "prompt": "Potential Energy (U) =",
+            "answer": "mgh",
+        },
+        {
+            "prompt": "Power (P) =",
+            "answer": "W/t",
+        },
+    ],
+    "Gravitation": [
+        {
+            "prompt": "Universal Gravitational Law force: F =",
+            "answer": "G*m1*m2/r^2",
+        },
+        {
+            "prompt": "Acceleration due to gravity: g =",
+            "answer": "GM/R^2",
+        },
+        {
+            "prompt": "Orbital velocity of satellite: v_0 =",
+            "answer": "sqrt(GM/R)",
+        },
+    ],
+    "Thermodynamics": [
+        {
+            "prompt": "First Law of Thermodynamics: dQ =",
+            "answer": "dU + dW",
+        },
+        {
+            "prompt": "Ideal Gas Law equation: PV =",
+            "answer": "nRT",
+        },
+    ],
+    "Oscillations & Waves": [
+        {
+            "prompt": "Time period of a simple pendulum: T =",
+            "answer": "2*pi*sqrt(l/g)",
+        },
+        {
+            "prompt": "Frequency (f) in terms of time period (T) =",
+            "answer": "1/T",
+        },
     ],
 }
 
 
-# কুইজ শুরু বা রিসেট করার ফাংশন
+# Function to reset or initialize the quiz
 def reset_quiz():
   all_questions = []
-  for topic, items in FORMULAS.items():
+  for topic, items in PHYSICS_FORMULAS.items():
     for item in items:
       all_questions.append((topic, item))
   random.shuffle(all_questions)
-  st.session_state.questions = all_questions[:5]  # ৫টি প্রশ্ন নির্বাচন
+  st.session_state.questions = all_questions[:5]  # Select 5 questions
   st.session_state.current_step = 0
   st.session_state.score = 0
   st.session_state.game_over = False
 
 
-# সাইডবার মেনু
-st.sidebar.title("📌 মেনু (Menu)")
+# Sidebar Menu
+st.sidebar.title("📌 Menu")
 mode = st.sidebar.radio(
-    "একটি মোড বেছে নিন:",
-    ["📚 Study All Formulas", "🎮 Play Formula Quiz Game"],
+    "Select Mode:", ["📚 Study All Physics Formulas", "🎮 Play Physics Quiz Game"]
 )
 
-st.title("📐 Class 11 Math Formula Master")
-st.write("একাদশ শ্রেণির গণিতের সূত্ৰ রিভিশন এবং প্র্যাকটিস করার অ্যাপ।")
+st.title("⚡ Class 11 Physics Formula Master")
+st.write(
+    "An interactive web app to revise and test your Class 11 Physics formulas."
+)
 st.divider()
 
-# --- ১. STUDY MODE ---
-if mode == "📚 Study All Formulas":
-  st.header("📚 Formula Cheat Sheet")
+# --- 1. STUDY MODE ---
+if mode == "📚 Study All Physics Formulas":
+  st.header("📚 Physics Formula Cheat Sheet")
 
-  for topic, items in FORMULAS.items():
+  for topic, items in PHYSICS_FORMULAS.items():
     with st.expander(f"🔹 {topic}", expanded=True):
       for item in items:
         st.markdown(f"• **{item['prompt']}** ➡️ `{item['answer']}`")
 
-# --- ২. QUIZ GAME MODE ---
-elif mode == "🎮 Play Formula Quiz Game":
-  st.header("🎮 Formula Quiz Game")
+# --- 2. QUIZ GAME MODE ---
+elif mode == "🎮 Play Physics Quiz Game":
+  st.header("🎮 Physics Quiz Game")
 
-  # সেসন স্টেট ইনিশিয়ালাইজ করা
   if "questions" not in st.session_state:
     reset_quiz()
 
@@ -94,24 +131,25 @@ elif mode == "🎮 Play Formula Quiz Game":
     if q_index < total_q:
       topic, item = st.session_state.questions[q_index]
 
-      st.caption(f"প্রশ্ন {q_index + 1} / {total_q} | বিষয়: **{topic}**")
-      st.subheader(f"Fill in the blank: `{item['prompt']} = ?`")
+      st.caption(f"Question {q_index + 1} / {total_q} | Topic: **{topic}**")
+      st.subheader(f"Fill in the blank: `{item['prompt']} ?`")
 
-      # ইউজার ইনপুট
+      # User input field
       user_ans = st.text_input(
-          "আপনার উত্তর লিখুন:", key=f"user_ans_{q_index}"
+          "Enter your answer:", key=f"user_ans_{q_index}"
       )
 
-      if st.button("জমা দিন (Submit)"):
-        # স্পেস এবং কেস বাদ দিয়ে যাচাই করা
+      if st.button("Submit Answer"):
         clean_user = user_ans.lower().replace(" ", "")
         clean_correct = item["answer"].lower().replace(" ", "")
 
         if clean_user == clean_correct:
-          st.success("✅ সঠিক উত্তর! (Correct!)")
+          st.success("✅ Correct Answer!")
           st.session_state.score += 1
         else:
-          st.error(f"❌ ভুল উত্তর! সঠিক উত্তর: **{item['answer']}**")
+          st.error(
+              f"❌ Incorrect! The correct answer is: **{item['answer']}**"
+          )
 
         st.session_state.current_step += 1
         if st.session_state.current_step >= total_q:
@@ -121,15 +159,15 @@ elif mode == "🎮 Play Formula Quiz Game":
     else:
       st.session_state.game_over = True
 
-  # কুইজ শেষ হলে ফলাফল দেখানো
+  # Display final results when game is over
   if st.session_state.game_over:
     st.balloons()
     st.subheader("🏆 Game Over!")
     st.metric(
-        label="আপনার মোট স্কোর:",
+        label="Your Final Score:",
         value=f"{st.session_state.score} / {len(st.session_state.questions)}",
     )
 
-    if st.button("আবার খেলুন (Play Again)"):
+    if st.button("Play Again"):
       reset_quiz()
       st.rerun()
