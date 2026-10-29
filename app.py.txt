@@ -1,0 +1,87 @@
+import random
+
+# Database of Class 11 CBSE Math Formulas organized by topic
+FORMULAS = {
+    "Sets & Relations": [
+        {"prompt": "Number of elements in power set P(A) where n(A) = m", "answer": "2^m"},
+        {"prompt": "n(A ∪ B) = n(A) + n(B) - ?", "answer": "n(A ∩ B)"},
+        {"prompt": "De Morgan's Law: (A ∪ B)' =", "answer": "A' ∩ B'"}
+    ],
+    "Trigonometric Functions": [
+        {"prompt": "sin²(x) + cos²(x) =", "answer": "1"},
+        {"prompt": "cos(2x) in terms of cos(x) =", "answer": "2cos²(x) - 1"},
+        {"prompt": "sin(A + B) =", "answer": "sinA cosB + cosA sinB"},
+        {"prompt": "tan(2x) =", "answer": "2tan(x) / (1 - tan²(x))"}
+    ],
+    "Permutations & Combinations": [
+        {"prompt": "nPr formula =", "answer": "n! / (n - r)!"},
+        {"prompt": "nCr formula =", "answer": "n! / (r! * (n - r)!)"},
+        {"prompt": "nCr + nC(r-1) =", "answer": "n+1Cr"}
+    ],
+    "Limits & Derivatives": [
+        {"prompt": "lim (x->0) [sin(x) / x] =", "answer": "1"},
+        {"prompt": "Derivative of x^n d/dx(x^n) =", "answer": "n*x^(n-1)"},
+        {"prompt": "Derivative of sin(x) =", "answer": "cos(x)"}
+    ],
+    "Straight Lines & Conics": [
+        {"prompt": "Slope of line through (x1, y1) and (x2, y2) =", "answer": "(y2 - y1) / (x2 - x1)"},
+        {"prompt": "Equation of circle with center (h,k) and radius r =", "answer": "(x-h)² + (y-k)² = r²"},
+        {"prompt": "Eccentricity (e) of a parabola =", "answer": "1"}
+    ]
+}
+
+def study_mode():
+    print("\n--- 📚 FORMULA CHEAT SHEET ---")
+    for topic, items in FORMULAS.items():
+        print(f"\n🔹 {topic}:")
+        for item in items:
+            print(f"  • {item['prompt']}  ➡️  {item['answer']}")
+
+def quiz_game():
+    print("\n--- 🎮 FORMULA MASTERY GAME ---")
+    score = 0
+    total = 0
+    
+    # Flatten formula list for random quiz questions
+    all_questions = []
+    for topic, items in FORMULAS.items():
+        for item in items:
+            all_questions.append((topic, item))
+            
+    random.shuffle(all_questions)
+    
+    for topic, item in all_questions[:5]:  # Ask 5 random questions
+        print(f"\n[Topic: {topic}]")
+        user_ans = input(f"Fill in the blank: {item['prompt']} = ").strip()
+        
+        if user_ans.lower().replace(" ", "") == item['answer'].lower().replace(" ", ""):
+            print("✅ Correct!")
+            score += 1
+        else:
+            print(f"❌ Incorrect! Correct answer: {item['answer']}")
+        total += 1
+        
+    print(f"\n🏆 Game Over! Your Score: {score}/{total}")
+
+def main():
+    while True:
+        print("\n===============================")
+        print("  CLASS 11 MATH FORMULA GAME   ")
+        print("===============================")
+        print("1. Study All Formulas")
+        print("2. Play Formula Quiz Game")
+        print("3. Exit")
+        
+        choice = input("\nChoose an option (1-3): ").strip()
+        if choice == "1":
+            study_mode()
+        elif choice == "2":
+            quiz_game()
+        elif choice == "3":
+            print("Good luck with your Class 11 Maths studies! Goodbye!")
+            break
+        else:
+            print("Invalid option, try again.")
+
+if __name__ == "__main__":
+    main()
