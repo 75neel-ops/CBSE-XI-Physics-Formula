@@ -11,64 +11,33 @@ st.set_page_config(
 # Class 11 Physics Formula Database
 PHYSICS_FORMULAS = {
     "Mechanics & Motion": [
-        {
-            "prompt": "Equation of motion: v =",
-            "answer": "u + at",
-        },
-        {
-            "prompt": "Displacement in time t: s =",
-            "answer": "ut + 1/2at^2",
-        },
-        {
-            "prompt": "Newton's Second Law force: F =",
-            "answer": "ma",
-        },
-        {
-            "prompt": "Centripetal acceleration: a_c =",
-            "answer": "v^2/r",
-        },
+        {"prompt": "Equation of motion: v =", "answer": "u + at"},
+        {"prompt": "Displacement in time t: s =", "answer": "ut + 1/2at^2"},
+        {"prompt": "Newton's Second Law force: F =", "answer": "ma"},
+        {"prompt": "Centripetal acceleration: a_c =", "answer": "v^2/r"},
     ],
     "Work, Energy & Power": [
         {
-            "prompt": "Work done (W) in terms of force (F) and displacement (s) =",
+            "prompt": (
+                "Work done (W) in terms of force (F) and displacement (s) ="
+            ),
             "answer": "F.s",
         },
-        {
-            "prompt": "Kinetic Energy (K) =",
-            "answer": "1/2mv^2",
-        },
-        {
-            "prompt": "Potential Energy (U) =",
-            "answer": "mgh",
-        },
-        {
-            "prompt": "Power (P) =",
-            "answer": "W/t",
-        },
+        {"prompt": "Kinetic Energy (K) =", "answer": "1/2mv^2"},
+        {"prompt": "Potential Energy (U) =", "answer": "mgh"},
+        {"prompt": "Power (P) =", "answer": "W/t"},
     ],
     "Gravitation": [
         {
             "prompt": "Universal Gravitational Law force: F =",
             "answer": "G*m1*m2/r^2",
         },
-        {
-            "prompt": "Acceleration due to gravity: g =",
-            "answer": "GM/R^2",
-        },
-        {
-            "prompt": "Orbital velocity of satellite: v_0 =",
-            "answer": "sqrt(GM/R)",
-        },
+        {"prompt": "Acceleration due to gravity: g =", "answer": "GM/R^2"},
+        {"prompt": "Orbital velocity of satellite: v_0 =", "answer": "sqrt(GM/R)"},
     ],
     "Thermodynamics": [
-        {
-            "prompt": "First Law of Thermodynamics: dQ =",
-            "answer": "dU + dW",
-        },
-        {
-            "prompt": "Ideal Gas Law equation: PV =",
-            "answer": "nRT",
-        },
+        {"prompt": "First Law of Thermodynamics: dQ =", "answer": "dU + dW"},
+        {"prompt": "Ideal Gas Law equation: PV =", "answer": "nRT"},
     ],
     "Oscillations & Waves": [
         {
@@ -94,6 +63,9 @@ def reset_quiz():
   st.session_state.current_step = 0
   st.session_state.score = 0
   st.session_state.game_over = False
+  st.session_state.answered = False
+  st.session_state.is_correct = False
+  st.session_state.correct_answer = ""
 
 
 # Sidebar Menu
@@ -121,7 +93,10 @@ if mode == "📚 Study All Physics Formulas":
 elif mode == "🎮 Play Physics Quiz Game":
   st.header("🎮 Physics Quiz Game")
 
-  if "questions" not in st.session_state:
+  if (
+      "questions" not in st.session_state
+      or not st.session_state.questions
+  ):
     reset_quiz()
 
   if not st.session_state.game_over:
@@ -131,30 +106,42 @@ elif mode == "🎮 Play Physics Quiz Game":
     if q_index < total_q:
       topic, item = st.session_state.questions[q_index]
 
-      st.caption(f"Question {q_index + 1} / {total_q} | Topic: **{topic}**")
+      st.caption(f"Question {q_index + 1} of {total_q} | Topic: **{topic}**")
       st.subheader(f"Fill in the blank: `{item['prompt']} ?`")
 
-      # User input field
-      user_ans = st.text_input(
-          "Enter your answer:", key=f"user_ans_{q_index}"
-      )
+      # If the user hasn't submitted an answer for this question yet
+      if not st.session_state.answered:
+        user_ans = st.text_input("Enter your answer:", key=f"user_ans_{q_index}")
 
-      if st.button("Submit Answer"):
-        clean_user = user_ans.lower().replace(" ", "")
-        clean_correct = item["answer"].lower().replace(" ", "")
+        if st.button("Submit Answer"):
+          clean_user = user_ans.lower().replace(" ", "")
+          clean_correct = item["answer"].lower().replace(" ", "")
 
-        if clean_user == clean_correct:
+          st.session_state.answered = True
+          st.session_state.correct_answer = item["answer"]
+
+          if clean_user == clean_correct:
+            st.session_state.is_correct = True
+            st.session_state.score += 1
+          else:
+            st.session_state.is_correct = False
+          st.rerun()
+
+      # If the user has submitted, show feedback and the 'Next Question' button
+      else:
+        if st.session_state.is_correct:
           st.success("✅ Correct Answer!")
-          st.session_state.score += 1
         else:
           st.error(
-              f"❌ Incorrect! The correct answer is: **{item['answer']}**"
+              f"❌ Incorrect! The correct answer is: **{st.session_state.correct_answer}**"
           )
 
-        st.session_state.current_step += 1
-        if st.session_state.current_step >= total_q:
-          st.session_state.game_over = True
-        st.rerun()
+        if st.button("Next Question ➡️"):
+          st.session_state.current_step += 1
+          st.session_state.answered = False
+          if st.session_state.current_step >= total_q:
+            st.session_state.game_over = True
+          st.rerun()
 
     else:
       st.session_state.game_over = True
