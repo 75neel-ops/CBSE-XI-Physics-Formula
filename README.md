@@ -4,7 +4,7 @@ A responsive, installable static website for CBSE Class XI NCERT Physics revisio
 
 ## Publish with GitHub Pages
 
-This site is in `physics-github-pages/`. The workflow in `.github/workflows/pages.yml` publishes that folder whenever changes reach `main`.
+The workflow in `.github/workflows/pages.yml` publishes the repository root whenever site files change on `main`.
 
 1. In the repository, open **Settings → Pages**.
 2. Under **Build and deployment**, choose **GitHub Actions** as the source if it is not already selected.
