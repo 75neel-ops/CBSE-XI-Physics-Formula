@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#132a30">
+  <meta name="description" content="Physics Quest by NilanjanC: Class XI NCERT revision, quizzes and explanations.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Physics Quest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Physics Quest · NilanjanC</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Physics Quest home"><img src="assets/physics-quest-logo.svg" alt="Physics Quest"></a>
+    <button class="install hidden" id="installBtn">Install app</button>
+    <a class="owner" href="#about">By NilanjanC</a>
+  </header>
+  <main id="home">
+    <section class="hero">
+      <div class="eyebrow">CBSE CLASS XI · NCERT PHYSICS</div>
+      <h1>Understand the forces<br>behind the formulae.</h1>
+      <p>Revise concepts, practise at your level, and get clear explanations chapter by chapter.</p>
+      <div class="hero-actions"><a class="button primary" href="#learn">Start learning <span>↓</span></a><span class="offline-note">Installable · works offline after first visit</span></div>
+      <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-mark">F = ma</div>
+    </section>
+    <nav class="tabs" aria-label="Study sections">
+      <button class="tab active" data-view="learn">⌘ <span>Key words</span></button>
+      <button class="tab" data-view="quiz">✳ <span>Quiz</span></button>
+      <button class="tab" data-view="ask">↗ <span>Ask</span></button>
+      <button class="tab" data-view="archive">▤ <span>Exam archive</span></button>
+    </nav>
+    <section id="learn" class="view active">
+      <div class="section-head"><div><div class="eyebrow dark">YOUR REVISION DESK</div><h2>Key words by chapter</h2><p>Core ideas and equations from the CBSE Class XI Physics syllabus.</p></div><label class="select-wrap">Chapter<select id="chapterSelect"></select></label></div>
+      <div id="chapterMeta" class="chapter-meta"></div><div id="keywordGrid" class="keyword-grid"></div>
+    </section>
+    <section id="quiz" class="view">
+      <div class="eyebrow dark">PRACTISE WITH PURPOSE</div><h2>Choose your challenge</h2><p class="lead">Try a question, ask for a hint if you need one, then see why the answer works.</p>
+      <div class="quiz-controls"><label class="select-wrap">Chapter<select id="quizChapter"></select></label><div class="levels" role="group" aria-label="Difficulty"><button class="level active" data-level="Easy">Easy</button><button class="level" data-level="Hard">Hard</button><button class="level" data-level="Extra Hard">Extra Hard</button></div></div>
+      <article id="questionCard" class="question-card"><div class="question-top"><span id="qBadge" class="badge">EASY</span><span id="qNumber" class="muted"></span></div><h3 id="questionText">Choose a chapter and difficulty to begin.</h3><button id="hintBtn" class="text-button">Show me a hint ↗</button><p id="hintText" class="hint hidden"></p><div id="options" class="options"></div><div id="feedback" aria-live="polite"></div><button id="nextBtn" class="button primary hidden">Next question →</button></article>
+    </section>
+    <section id="ask" class="view">
+      <div class="eyebrow dark">A PLACE TO GET UNSTUCK</div><h2>Ask Physics Quest</h2><p class="lead">Ask about a Class XI concept. The study guide finds the closest chapter terms and explains what to review.</p>
+      <div class="ask-panel"><label for="askInput">What are you wondering about?</label><textarea id="askInput" rows="4" placeholder="For example: Why is acceleration centripetal in circular motion?"></textarea><div class="ask-footer"><span>Answers use this site's curated notes; verify with NCERT.</span><button class="button primary" id="askBtn">Find an explanation →</button></div></div><div id="askResult" class="ask-result" aria-live="polite"></div>
+      <aside class="notice"><strong>About AI answers</strong><br>This GitHub Pages site is static and cannot keep a Gemini API key private. To enable Gemini for all students, connect a small secure backend later. Never paste your private API key into this page.</aside>
+    </section>
+    <section id="archive" class="view">
+      <div class="eyebrow dark">SOURCE-VERIFIED PRACTICE</div><h2>Class XI exam archive</h2><p class="lead">Find school final exam questions by year and chapter. Class XI final papers are set by individual schools; there is no single common CBSE Class XI final paper.</p>
+      <div class="archive-filters"><label class="select-wrap">Chapter<select id="archiveChapter"></select></label><label class="select-wrap">Year<select id="archiveYear"><option value="">All years</option></select></label></div>
+      <div id="archiveList" class="archive-list"></div>
+      <div class="archive-upload"><h3>Add source-verified questions</h3><p>Import a CSV with columns: <code>year, chapter, school, question, answer, explanation, source</code>. The import stays in this browser only; for shared permanent updates, add the CSV to the repository.</p><label class="button secondary upload-label">Choose CSV<input type="file" id="csvInput" accept=".csv,text/csv"></label><div id="uploadNote" class="muted"></div></div>
+    </section>
+    <section class="sources" id="about"><div><span class="eyebrow dark">MADE FOR CLASS XI</span><p>Physics Quest is an independent study project by <strong>NilanjanC</strong>. It is not affiliated with CBSE or NCERT.</p></div><div class="source-links"><a href="https://cbseacademic.nic.in/web_material/CurriculumMain27/SecPart2/Physics_SecP2_2026-27.pdf" target="_blank" rel="noreferrer">CBSE 2026–27 syllabus ↗</a><a href="https://ncert.nic.in/textbook.php?keph1=0-14" target="_blank" rel="noreferrer">NCERT textbook portal ↗</a></div></section>
+  </main>
+  <footer>© <span id="yearNow"></span> NilanjanC <span>·</span> Physics Quest <span>·</span> Independent learning resource</footer>
+  <script src="content.js"></script><script src="app.js"></script>
+</body>
+</html>
+
