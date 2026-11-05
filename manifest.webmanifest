@@ -1,0 +1,15 @@
+{
+  "name": "Physics Quest by NilanjanC",
+  "short_name": "Physics Quest",
+  "description": "Class XI CBSE NCERT Physics revision and quiz game",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f4ef",
+  "theme_color": "#132a30",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" },
+    { "src": "assets/physics-quest-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
+
