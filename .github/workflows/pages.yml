@@ -4,7 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - 'physics-github-pages/**'
+      - 'index.html'
+      - 'styles.css'
+      - 'content.js'
+      - 'app.js'
+      - 'manifest.webmanifest'
+      - 'sw.js'
+      - 'assets/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -31,7 +37,7 @@ jobs:
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: physics-github-pages
+          path: .
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
