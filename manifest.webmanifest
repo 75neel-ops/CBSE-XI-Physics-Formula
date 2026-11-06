@@ -1,7 +1,7 @@
 {
   "name": "Physics Quest by NilanjanC",
   "short_name": "Physics Quest",
-  "description": "Class XI CBSE NCERT Physics revision and quiz game",
+  "description": "Class XI CBSE NCERT Physics revision and study guide",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

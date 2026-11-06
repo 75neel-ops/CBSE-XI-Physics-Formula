@@ -1,6 +1,6 @@
 # Physics Quest by NilanjanC
 
-A responsive, installable static website for CBSE Class XI NCERT Physics revision. It has chapter keywords, Easy / Hard / Extra Hard multiple-choice questions with hints and explanations, a local study-notes question finder, and a year/chapter archive for source-verified school exam questions.
+A responsive, installable static website for CBSE Class XI NCERT Physics revision. It has chapter keywords, a local study-notes question finder, and a year/chapter archive for source-verified school exam questions.
 
 ## Publish with GitHub Pages
 

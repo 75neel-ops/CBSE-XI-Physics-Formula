@@ -1,4 +1,4 @@
-const CACHE='physics-quest-v4';
+const CACHE='physics-quest-v5';
 const FILES=['./','./index.html','./styles.css','./content.js','./app.js','./manifest.webmanifest','./assets/physics-quest-logo.svg','./assets/favicon.svg'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));
